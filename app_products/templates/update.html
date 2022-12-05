@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        *** editar produto {{ product.id }} - {{ product.name }} ***
+
+        <form action="{% url 'update' product.id %}" method="POST">
+            <!-- source: Cross Site Request Forgery protection - https://docs.djangoproject.com/en/4.1/ref/csrf/-->
+            <!-- Proteção contra falsificação de solicitação entre sites -->
+            {% csrf_token %}
+            <input type='text' name='name' value="{{product.name}}"/>
+            <input type='text' name='price' value="{{product.price}}"/>
+            <button type="submit">atualizar</button>
+        </form>
+        
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        *** lista de produtos ***
+
+        <form action="{% url 'add' %}" method="POST">
+            <!-- source: Cross Site Request Forgery protection - https://docs.djangoproject.com/en/4.1/ref/csrf/-->
+            <!-- Proteção contra falsificação de solicitação entre sites -->
+            {% csrf_token %}
+            <input type='text' name='name' placeholder="nome do produto"/>
+            <input type='text' name='price' placeholder="preço"/>
+            <button type="submit">salvar</button>
+        </form>
+        <ul>
+            {% for product in products %}
+                <li>{{ product.id }} - {{ product.name}}  
+                    <a href="{% url 'edit' product.id %}">editar</a>
+                    <a href="{% url 'delete' product.id %}">  delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
